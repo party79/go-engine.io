@@ -27,6 +27,9 @@ type Conn interface {
 	// Id returns the session id of connection.
 	Id() string
 
+	// Transport returns the current transport of the connection.
+	Transport() transport.Server
+
 	// Request returns the first http request when established connection.
 	Request() *http.Request
 
@@ -114,6 +117,10 @@ func newServerConn(id string, w http.ResponseWriter, r *http.Request, callback s
 
 func (c *serverConn) Id() string {
 	return c.id
+}
+
+func (c *serverConn) Transport() transport.Server {
+	return c.getCurrent()
 }
 
 func (c *serverConn) Request() *http.Request {
