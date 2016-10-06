@@ -56,6 +56,10 @@ func (s *Server) Close() error {
 	return s.conn.Close()
 }
 
+func (s *Server) Conn() *websocket.Conn {
+	return s.conn
+}
+
 func (s *Server) serveHTTP(w http.ResponseWriter, r *http.Request) {
 	defer s.callback.OnClose(s)
 
